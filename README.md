@@ -20,6 +20,21 @@ In this environment:
 
 ---
 
+🧪 Simulated Scenario:
+- Previously, site2.local was the main website of the service.
+- As a result, accessing the IP address 127.0.0.1 would be automatically reversed (or redirected) to site2.local, since the Apache configuration used to route raw IP traffic to it.
+
+- Later, due to internal restructuring or policy changes, the development team moved the primary site to localhost (or site1.local).
+
+- However, a critical mistake was made:
+The developer forgot to update the reverse IP redirection logic inside the Apache configuration.
+- As a result, requests to http://127.0.0.1:8080 are still redirected to site2.local, which was supposed to be deprecated or hidden.
+
+- This leftover behavior introduces a new attack surface for hackers.
+- Because if a malicious actor discovers the old domain site2.local, they may exploit forgotten or unmaintained functionality — commonly known as "Virtual Host Confusion" or "Hidden Admin Panels" due to legacy misconfiguration.
+
+---
+
 ## 🛡️ Security Impact
 
 ### **Virtual Host Confusion**
@@ -66,6 +81,20 @@ Trong môi trường này:
 - Hiện tại ta, có thể truy cập được tên miền site1.local, nhưng site2.local thì lại không thể
 - Nếu truy cập bằng ip `http://127.0.0.1:8080`, Apache sẽ **redirect sang `http://site2.local/`**.
 - Nếu máy chưa cấu hình `/etc/hosts` cho `site2.local`, trình duyệt sẽ báo lỗi **không phân giải được tên miền**.
+
+---
+
+🧪 Tình huống giả lập:
+- Trước đây, site2.local là trang chính của hệ thống.
+Do đó, khi truy cập bằng địa chỉ IP 127.0.0.1, Apache sẽ tự động chuyển hướng sang site2.local, vì cấu hình máy chủ mặc định như vậy.
+
+- Tuy nhiên, sau một thời gian, nhóm phát triển đã chuyển trang chính sang localhost (hay site1.local).
+- Vấn đề phát sinh là lập trình viên quên cập nhật lại cấu hình chuyển hướng IP, khiến cho 127.0.0.1 vẫn tiếp tục trỏ về site2.local khi người dùng truy cập bằng IP.
+
+- Điều này dẫn đến một bề mặt tấn công mới cho hacker:
+  + Hacker có thể tìm ra và khai thác site2.local – một website cũ, có thể không còn được bảo trì đầy đủ, và dễ chứa lỗi bảo mật.
+
+- Đây là một ví dụ điển hình của lỗi "Virtual Host Confusion" – sai lệch trong định danh domain qua Host header.
 
 ---
 
