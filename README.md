@@ -12,10 +12,10 @@ This environment recreates the behavior of applications that separate services b
 In this environment:
 
 - Two websites are served on the same IP (`127.0.0.1`) and port (`8080`), but distinguished by domain names:
-  - `site1.local`
+  - `localhost`
   - `site2.local`
-- Currently, `site1.local` is accessible, but `site2.local` is not.
-- When accessing `http://127.0.0.1:8080`, Apache **redirects to `http://site2.local/`**.
+- Currently, `localhost` is accessible, but `site2.local` is not.
+- When accessing `http://127.0.0.1:8080`, Apache **redirects to `http://site2.local:8080`**.
 - If the system hasn’t configured `/etc/hosts` for `site2.local`, the browser will report a **DNS resolution error**.
 
 ---
@@ -37,7 +37,7 @@ sudo docker-compose up --build
 
 2. Try accessing the following links:
 
-- [site1.local](http://site1.local:8080)
+- [localhost](http://localhost:8080)
 - [127.0.0.1](http://127.0.0.1:8080)
 
 ## Write-up:
@@ -61,7 +61,7 @@ Môi trường này tái hiện hành vi phổ biến của các ứng dụng we
 Trong môi trường này:
 
 - Có 2 website được phục vụ trên cùng 1 IP (`127.0.0.1`) và port (`8080`) nhưng phân biệt nhau bằng tên miền:
-  - `site1.local`
+  - `localhost`
   - `site2.local`
 - Hiện tại ta, có thể truy cập được tên miền site1.local, nhưng site2.local thì lại không thể
 - Nếu truy cập bằng ip `http://127.0.0.1:8080`, Apache sẽ **redirect sang `http://site2.local/`**.
@@ -84,7 +84,7 @@ sudo docker-compose up --build
 ```
 
 2. Thử truy cập Link:
-- [site1.local](http://site1.local:8080)
+- [localhost](http://localhost:8080)
 - [127.0.0.1](http://127.0.0.1:8080)
 
 ## Write up:
