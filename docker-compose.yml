@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  apache:
+    image: httpd:2.4
+    container_name: apache-vhost
+    ports:
+      - "8080:80"
+    volumes:
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./httpd/site1:/usr/local/apache2/htdocs/site1
+      - ./httpd/site2:/usr/local/apache2/htdocs/site2
